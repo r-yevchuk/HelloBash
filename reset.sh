@@ -7,19 +7,15 @@ if [ -z "$path" ]; then
     exit 1;
 fi 
 
-if [ -d $HOME/.java/.userPrefs ]; then
-    echo "Deleting ... $HOME/.java/.userPrefs"
-    rm -rf .java/.userPrefs
-fi
+declare -a arr=("$HOME/.java/.userPrefs" 
+                "$path/options/other.xml" 
+                "$path/eval")
 
-if [ -f $path/options/other.xml ]; then
-    echo "Deleting ... $path/options/other.xml"
-    rm $path/options/other.xml
-fi
-
-if [ -d $path/eval ]; then
-    echo "Deleting ... $path/eval"
-    rm -rf $path/eval
-fi
-
+for i in "${arr[@]}"
+do
+    if [ -e $i ]; then
+        echo "Deleting ... $i";
+        rm -rf $i
+    fi
+done
 echo "Done"
